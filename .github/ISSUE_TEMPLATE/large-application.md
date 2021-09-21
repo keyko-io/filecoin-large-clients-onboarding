@@ -15,7 +15,7 @@ To apply as a large client, please fill out the following form.
 - Website / Social Media:
 - Total amount of DataCap being requested (between 500 TiB and 5 PiB):
 - On-chain address for first allocation:
-- Expected weekly DataCap usage rate:
+- Weekly allocation of DataCap requested (usually between 1-100TiB):
 
 _Please respond to the questions below in pargraph form, replacing the text saying "Please answer here". Include as much detail as you can in your answer!_
 
