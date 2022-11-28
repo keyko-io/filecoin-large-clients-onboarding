@@ -326,12 +326,12 @@ body:
   - type: dropdown
     attributes:
       label: Type
-      description: If needed Filecoin team will fill up this field later on. You can skip this field.
+      description: Data owner should engage at least 4 SPs and no single SP ID should receive >30% of a client's allocated DataCap
       options:
         - "Custom Notary"
-        - "wow"
+        - "No"
     validations:
-      required: false    
+      required: true   
   - type: input
     attributes:
       label: Identifier
