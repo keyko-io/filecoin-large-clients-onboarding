@@ -326,9 +326,15 @@ body:
   - type: input
     attributes:
       label: Type
-      description: If needed Filecoin team will fill up this field.You can skip.
+      description: If needed Filecoin team will fill up this field later on. You can skip this field.
     validations:
       required: false
+  - type: input
+    attributes:
+      label: Identifier
+      description: If needed Filecoin team will fill up this field later on. You can skip this field.
+    validations:
+      required: false    
   - type: markdown
     attributes:
       value: |
