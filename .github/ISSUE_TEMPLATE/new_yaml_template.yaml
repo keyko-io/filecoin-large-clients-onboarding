@@ -329,6 +329,8 @@ body:
       description: If needed Filecoin team will fill up this field later on. You can skip this field.
       options:
         - "Custom Notary"
+    validations:
+      required: false    
   - type: input
     attributes:
       label: Identifier
