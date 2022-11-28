@@ -323,12 +323,12 @@ body:
       description: Make sure the address exists on the chain
     validations:
       required: true
-  - type: input
+  - type: dropdown
     attributes:
       label: Type
       description: If needed Filecoin team will fill up this field later on. You can skip this field.
-    validations:
-      required: false
+      options:
+        - "Custom Notary"
   - type: input
     attributes:
       label: Identifier
