@@ -323,6 +323,12 @@ body:
       description: Make sure the address exists on the chain
     validations:
       required: true
+  - type: input
+    attributes:
+      label: Type
+      description: If needed Filecoin team will fill up this field.You can skip.
+    validations:
+      required: false
   - type: markdown
     attributes:
       value: |
