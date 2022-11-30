@@ -323,12 +323,14 @@ body:
       description: Make sure the address exists on the chain
     validations:
       required: true
-  - type: dropdown
+- type: checkboxes
     attributes:
-      label: Type
-      description: If needed Filecoin team will fill up this field later on. You can skip this field.
+      id: custom-multisig
+      label: Custom multisig 
+      description: Mark this checkbox if this client should use a specific multisig (for fil+ gov team).
       options:
-        - "Custom Notary"
+        - label: "do not use Custom Multisig"
+        - label: "use Custom Multisig"
     validations:
       required: false   
   - type: input
