@@ -328,7 +328,6 @@ body:
       label: Custom multisig 
       description: Mark this checkbox if this client should use a specific multisig (for fil+ gov team).
       options:
-        - label: "do not use Custom Multisig"
         - label: "use Custom Multisig"  
   - type: input
     attributes:
