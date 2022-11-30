@@ -323,16 +323,14 @@ body:
       description: Make sure the address exists on the chain
     validations:
       required: true
-- type: checkboxes
+  - type: checkboxes
     attributes:
       id: custom-multisig
       label: Custom multisig 
       description: Mark this checkbox if this client should use a specific multisig (for fil+ gov team).
       options:
         - label: "do not use Custom Multisig"
-        - label: "use Custom Multisig"
-    validations:
-      required: false   
+        - label: "use Custom Multisig"  
   - type: input
     attributes:
       label: Identifier
