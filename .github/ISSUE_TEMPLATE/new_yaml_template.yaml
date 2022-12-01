@@ -305,7 +305,7 @@ body:
       render: text
     validations:
       required: true
-  -type: dropdown
+  - type: dropdown
     attributes:
       description: The maximum amount allowed is 5 PiB
       label: Total amount of DataCap being requested
