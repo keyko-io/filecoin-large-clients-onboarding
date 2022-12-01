@@ -318,28 +318,6 @@ body:
         - 5PiB
     validations:
       required: true
-   - type: dropdown
-    attributes:
-      description: This amount is usually between 1 TiB and 1000 TiB
-      label: Weekly allocation of DataCap requested
-      options:
-        - 10TiB
-        - 50TiB
-        - 100TiB
-        - 150TiB
-        - 200TiB
-        - 300TiB
-        - 350TiB
-        - 400TiB
-        - 450TiB
-        - 500TiB
-        - 600TiB
-        - 700TiB
-        - 800TiB
-        - 900TiB
-        - 1PiB
-    validations:
-      required: true
   - type: input
     attributes:
       label: Weekly allocation of DataCap requested
