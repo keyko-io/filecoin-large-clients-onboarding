@@ -318,7 +318,7 @@ body:
         - 5PiB
     validations:
       required: true
-   -type: dropdown
+   - type: dropdown
     attributes:
       description: This amount is usually between 1 TiB and 1000 TiB
       label: Weekly allocation of DataCap requested
