@@ -1,7 +1,9 @@
 name: 'Close inactive issues'
+#on:
+ #schedule:
+  #  - cron: '0 1 * * *'
 on:
-  schedule:
-    - cron: '0 1 * * *'
+  workflow_dispatch:
 
 jobs:
   stale:
