@@ -5,8 +5,8 @@ name: 'Close inactive issues'
   
 on:
   workflow_dispatch:
-permissions:
-  issues: write
+ 
+permissions: write-all
 
 jobs:
   stale:
