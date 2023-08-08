@@ -10,13 +10,13 @@
       "social_media": "TODO"
     },
     "application_lifecycle": {
-      "state": "Proposal",
+      "state": "Approval",
       "validated_time": "2023-08-08 11:48:44.795013238 UTC",
       "initial_pr_number": 1605,
       "validated_by": "large-request[bot]",
       "first_allocation_time": "",
       "is_active": true,
-      "time_of_new_state": "2023-08-08 11:48:46.669563041 UTC"
+      "time_of_new_state": "2023-08-08 11:48:49.225185268 UTC"
     },
     "datacap_allocations": [
       {
