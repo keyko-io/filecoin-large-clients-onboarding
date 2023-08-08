@@ -1,1 +1,23 @@
-{}
+{
+  "id": "1585",
+  "_type": "LDN",
+  "info": {
+    "core_information": {
+      "data_owner_name": "helo world",
+      "data_owner_region": "Antarctica",
+      "data_owner_industry": "TODO",
+      "website": "www.kebab.com",
+      "social_media": "TODO"
+    },
+    "application_lifecycle": {
+      "state": "GovernanceReview",
+      "validated_time": "2023-08-08 09:13:17.423281261 UTC",
+      "initial_pr_number": 1586,
+      "validated_by": "",
+      "first_allocation_time": "",
+      "is_active": true,
+      "time_of_new_state": "2023-08-08 09:13:17.423291169 UTC"
+    },
+    "datacap_allocations": []
+  }
+}
