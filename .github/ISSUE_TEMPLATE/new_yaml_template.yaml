@@ -469,7 +469,7 @@ body:
     required: false
 - type: dropdown
   attributes:
-    label: If you are a data preparer. What is your location (Country/Region) 
+    label: If you are a data preparer. What is your location (Country/Region)
     options:
       - Afghanistan
       - Åland Islands
