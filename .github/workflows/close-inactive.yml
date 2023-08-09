@@ -36,6 +36,6 @@ jobs:
           npm install @octokit/rest node-fetch
           
       - name: Notify on stale issues
-        run: node .github/scripts/notify_stale_issues.js
+        run: node .github/scripts/notify_stale_issues.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
