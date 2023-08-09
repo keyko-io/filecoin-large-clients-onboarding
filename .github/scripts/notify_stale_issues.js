@@ -1,7 +1,14 @@
 // .github/scripts/notify_stale_issues.js
 
 const { Octokit } = require('@octokit/rest');
-const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+const fetch = require("node-fetch");
+
+const octokit = new Octokit({
+  auth: process.env.GITHUB_TOKEN,
+  request: {
+    fetch: fetch
+  }
+});
 
 const owner = process.env.GITHUB_REPOSITORY.split('/')[0];
 const repo = process.env.GITHUB_REPOSITORY.split('/')[1];
