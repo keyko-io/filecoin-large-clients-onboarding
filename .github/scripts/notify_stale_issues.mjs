@@ -23,7 +23,7 @@ async function checkAndCommentOnIssues() {
 
   const tenDaysAgo = new Date();
   tenDaysAgo.setDate(tenDaysAgo.getDate() - 0); //change later to 10
-  const tenDaysAgoDateString = tenDaysAgoDateString.toISOString().split('T')[0];
+  const tenDaysAgoDateString = tenDaysAgo.toISOString().split('T')[0];
 
   for (const issue of issues) {
     const updatedAt = new Date(issue.updated_at);
