@@ -29,7 +29,7 @@ async function checkAndCommentOnIssues() {
     console.log({
       issueNumber: issue.number,
       updatedAt: updatedAt.getTime(),
-      tenDaysAgo: tenDaysAgo(),
+      tenDaysAgo: tenDaysAgo.getTime(),
     })
     if (updatedAt.getTime() === tenDaysAgo.getTime()) {
       await octokit.issues.createComment({
