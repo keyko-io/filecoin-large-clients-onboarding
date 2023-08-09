@@ -28,11 +28,6 @@ async function checkAndCommentOnIssues() {
   for (const issue of issues) {
     const updatedAt = new Date(issue.updated_at);
     const updatedAtDateString = updatedAt.toISOString().split('T')[0];
-    console.log({
-      issueNumber: issue.number,
-      updatedAt: updatedAtDateString,
-      tenDaysAgo: tenDaysAgoDateString,
-    });
 
     if (updatedAtDateString === tenDaysAgoDateString) {
       await octokit.issues.createComment({
