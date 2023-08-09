@@ -1,0 +1,32 @@
+// .github/scripts/notify_stale_issues.js
+
+const { Octokit } = require('@octokit/rest');
+const octokit = new Octokit({ auth: process.env.GITHUB_TOKEN });
+
+const owner = process.env.GITHUB_REPOSITORY.split('/')[0];
+const repo = process.env.GITHUB_REPOSITORY.split('/')[1];
+
+async function checkAndCommentOnIssues() {
+  const { data: issues } = await octokit.issues.listForRepo({
+    owner,
+    repo,
+    state: 'open'
+  });
+
+  const tenDaysAgo = new Date();
+  tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
+
+  for (const issue of issues) {
+    const updatedAt = new Date(issue.updated_at);
+    if (updatedAt.getTime() === tenDaysAgo.getTime()) {
+      await octokit.issues.createComment({
+        owner,
+        repo,
+        issue_number: issue.number,
+        body: "This application has not seen any responses in the last 10 days. This issue will be marked with Stale label and will be closed in 4 days. Comment if you want to keep this application open."
+      });
+    }
+  }
+}
+
+checkAndCommentOnIssues();
