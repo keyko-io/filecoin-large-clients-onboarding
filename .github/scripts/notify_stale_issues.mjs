@@ -22,7 +22,7 @@ async function checkAndCommentOnIssues() {
   });
 
   const tenDaysAgo = new Date();
-  tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
+  tenDaysAgo.setDate(tenDaysAgo.getDate() - 0); //change later to 10
 
   for (const issue of issues) {
     const updatedAt = new Date(issue.updated_at);
