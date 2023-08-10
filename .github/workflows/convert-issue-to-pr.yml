@@ -1,7 +1,8 @@
 name: New Issue Tracker
 
 on:
-  issue_created:
+  issues:
+    types: [opened]
 
 jobs:
   write_issue_number:
