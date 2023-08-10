@@ -8,9 +8,9 @@ jobs:
   write_issue_number:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Get issue number
         id: get-issue-number
-        run: echo "::set-output name=issue_number::$(github.event.issue.number)"
+        run: echo "::set-output name=issue_number::$(github.context.issue.number)"
       - name: Write issue number to file
         run: echo "${{ steps.get-issue-number.outputs.issue_number }}" > issue_number.txt
