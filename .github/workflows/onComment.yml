@@ -1,0 +1,19 @@
+name: Process New Issue Comments
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  handle_comment:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Process the comment
+      run: |
+        COMMENT_BODY="${{ github.event.comment.body }}"
+        ISSUE_NUMBER="${{ github.event.issue.number }}"
+        echo "Comment body: $COMMENT_BODY"
+        echo "Issue number: $ISSUE_NUMBER"
