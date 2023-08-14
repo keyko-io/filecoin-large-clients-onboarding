@@ -1,0 +1,25 @@
+name: 'Run SSA Bot'
+on:
+  workflow_dispatch:
+  
+jobs:
+  launch-ssa-bot:
+    runs-on:
+      ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          sparse-checkout: |
+            .github
+
+      - name: install CLI dependencies
+        run: |
+          git clone --branch feature/add-ssa-bot-workflow https://github.com/keyko-io/filecoin-auto-datacap-allocation-bot.git ssa-bot-repo
+          cd ssa-bot-repo
+          npm install
+          npm run build
+          npm link
+
+      - name: Execute CLI command and display help
+        run: filecoin-bot -h
