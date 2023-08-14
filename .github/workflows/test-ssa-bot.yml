@@ -17,7 +17,7 @@ jobs:
 
       - name: install CLI dependencies
         run: |
-          git clone --branch feature/use-cli https://github.com/keyko-io/filecoin-auto-datacap-allocation-bot.git ssa-bot-repo
+          git clone --branch feature/use-cli --recursive https://github.com/keyko-io/filecoin-auto-datacap-allocation-bot.git ssa-bot-repo
           cd ssa-bot-repo
           npm install
           npm run build
