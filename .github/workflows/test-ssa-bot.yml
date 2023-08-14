@@ -1,6 +1,8 @@
 name: 'Run SSA Bot'
 on:
   workflow_dispatch:
+  # schedule:
+  #  - cron: '0 1 * * *'
   
 jobs:
   launch-ssa-bot:
@@ -15,7 +17,7 @@ jobs:
 
       - name: install CLI dependencies
         run: |
-          git clone --branch feature/add-ssa-bot-workflow https://github.com/keyko-io/filecoin-auto-datacap-allocation-bot.git ssa-bot-repo
+          git clone --branch feature/use-cli https://github.com/keyko-io/filecoin-auto-datacap-allocation-bot.git ssa-bot-repo
           cd ssa-bot-repo
           npm install
           npm run build
