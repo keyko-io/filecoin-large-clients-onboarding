@@ -14,7 +14,7 @@ jobs:
         with:
           sparse-checkout: |
             .github
-            
+
       - name: install CLI dependencies
         run: |
           git clone --branch feature/add-ssa-bot-workflow https://github.com/keyko-io/filecoin-auto-datacap-allocation-bot.git ssa-bot-repo
@@ -23,5 +23,5 @@ jobs:
           npm run build
           npm link
 
-      - name: Ejecuta el CLI
+      - name: Execute CLI command and display help
         run: filecoin-bot -h
