@@ -1,4 +1,4 @@
-name: 'Close inactive issues'
+name: 'Run SSA Bot'
 on:
   workflow_dispatch:
   # schedule:
@@ -9,6 +9,12 @@ jobs:
     runs-on:
       ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          sparse-checkout: |
+            .github
+            
       - name: install CLI dependencies
         run: |
           git clone --branch feature/add-ssa-bot-workflow https://github.com/keyko-io/filecoin-auto-datacap-allocation-bot.git ssa-bot-repo
