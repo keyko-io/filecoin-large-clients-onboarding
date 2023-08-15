@@ -22,7 +22,7 @@ jobs:
           npm link
 
       - name: Execute CLI command and display help
-        run: filecoin-bot -h
+        run: ssa-bot -h
         env:
           GITHUB_LDN_REPO_OWNER: ${{ secrets.SSA_GITHUB_LDN_REPO_OWNER }}
           GITHUB_LDN_REPO: ${{ secrets.SSA_GITHUB_LDN_REPO }}
