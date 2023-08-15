@@ -1,6 +1,7 @@
-name: 'Run SSA Bot'
+name: 'Run SSA Bot on Issue Comment'
 on:
-  workflow_dispatch:
+  issue_comment:
+    types: [created]
   
 jobs:
   launch-ssa-bot:
@@ -15,15 +16,20 @@ jobs:
 
       - name: install CLI dependencies
         run: |
-          git clone --branch feature/use-cli --recursive https://github.com/keyko-io/filecoin-auto-datacap-allocation-bot.git ssa-bot-repo
+          git clone --branch feature/use-cli https://github.com/keyko-io/filecoin-auto-datacap-allocation-bot.git ssa-bot-repo
           cd ssa-bot-repo
           npm install
           npm run build
           npm link
 
-      - name: Execute CLI command and display App Id
-        run: ssa-bot test-env
+      - name: Execute CLI command and display App ID
+        run: ssa-bot check-issue --issueNumber="${ISSUE_NUMBER}" --issueBody="${ISSUE_BODY}" --commentBody="${COMMENT_BODY}" --commentAuthor="${COMMENT_AUTHOR}"
         env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          COMMENT_BODY: ${{ github.event.comment.body }}
+          COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
+
           GITHUB_LDN_REPO_OWNER: ${{ secrets.SSA_GITHUB_LDN_REPO_OWNER }}
           GITHUB_LDN_REPO: ${{ secrets.SSA_GITHUB_LDN_REPO }}
           GITHUB_NOTARY_REPO: ${{ secrets.SSA_GITHUB_NOTARY_REPO }}
