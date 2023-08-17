@@ -23,7 +23,7 @@ jobs:
           npm link
 
       - name: Execute CLI command and display App ID
-        run: ssa-bot check-issue --issueNumber="${ISSUE_NUMBER}" --issueBody="${ISSUE_BODY}" --commentBody="${COMMENT_BODY}" --commentAuthor="${COMMENT_AUTHOR}"
+        run: ssa-bot check-issue-comment --issueNumber="${ISSUE_NUMBER}" --issueBody="${ISSUE_BODY}" --commentBody="${COMMENT_BODY}" --commentAuthor="${COMMENT_AUTHOR}"
         env:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           ISSUE_BODY: ${{ github.event.issue.body }}
