@@ -47,3 +47,4 @@ jobs:
           V3_MULTISIG_ADDRESS: ${{ secrets.SSA_V3_MULTISIG_ADDRESS }}
           V3_MULTISIG_ISSUE_NUMBER: ${{ secrets.SSA_V3_MULTISIG_ISSUE_NUMBER }}
           HEALTH_CEHECK_ISSUE: ${{ secrets.SSA_HEALTH_CEHECK_ISSUE }}
+          NODE_ENV: test
