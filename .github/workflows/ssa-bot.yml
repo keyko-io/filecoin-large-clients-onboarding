@@ -1,8 +1,7 @@
-name: 'Run SSA Bot'
+name: 'Run SSA Bot on Issue Comment'
 on:
-  workflow_dispatch:
-  # schedule:
-  #  - cron: '0 1 * * *'
+  issue_comment:
+    types: [created]
   
 jobs:
   launch-ssa-bot:
@@ -17,11 +16,34 @@ jobs:
 
       - name: install CLI dependencies
         run: |
-          git clone --branch feature/add-ssa-bot-workflow https://github.com/keyko-io/filecoin-auto-datacap-allocation-bot.git ssa-bot-repo
+          git clone --branch feature/use-cli --recursive https://github.com/keyko-io/filecoin-auto-datacap-allocation-bot.git ssa-bot-repo
           cd ssa-bot-repo
           npm install
           npm run build
           npm link
 
-      - name: Execute CLI command and display help
-        run: filecoin-bot -h
+      - name: Execute CLI command and display App ID
+        run: ssa-bot check-issue-comment --issueNumber="${ISSUE_NUMBER}" --issueBody="${ISSUE_BODY}" --commentBody="${COMMENT_BODY}" --commentAuthor="${COMMENT_AUTHOR}"
+        env:
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          COMMENT_BODY: ${{ github.event.comment.body }}
+          COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
+
+          GITHUB_LDN_REPO_OWNER: ${{ secrets.SSA_GITHUB_LDN_REPO_OWNER }}
+          GITHUB_LDN_REPO: ${{ secrets.SSA_GITHUB_LDN_REPO }}
+          GITHUB_NOTARY_REPO: ${{ secrets.SSA_GITHUB_NOTARY_REPO }}
+          NODE_URL: ${{ secrets.SSA_NODE_URL }}
+          LOTUS_NODE_TOKEN: ${{ secrets.SSA_LOTUS_NODE_TOKEN }}
+          NETWORK_TYPE: ${{ secrets.SSA_NETWORK_TYPE }}
+          API_KEY: ${{ secrets.SSA_API_KEY }}
+          APP_ID: ${{ secrets.SSA_APP_ID }}
+          CLIENT_ID: ${{ secrets.SSA_CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.SSA_CLIENT_SECRET }}
+          GIT_PRIVATE_KEY: ${{ secrets.SSA_GIT_PRIVATE_KEY }}
+          INSTALLATION_ID: ${{ secrets.SSA_INSTALLATION_ID }}
+          GIT_BEGIN_PK: ${{ secrets.SSA_GIT_BEGIN_PK }}
+          GIT_END_PK: ${{ secrets.SSA_GIT_END_PK }}
+          V3_MULTISIG_ADDRESS: ${{ secrets.SSA_V3_MULTISIG_ADDRESS }}
+          V3_MULTISIG_ISSUE_NUMBER: ${{ secrets.SSA_V3_MULTISIG_ISSUE_NUMBER }}
+          HEALTH_CEHECK_ISSUE: ${{ secrets.SSA_HEALTH_CEHECK_ISSUE }}
