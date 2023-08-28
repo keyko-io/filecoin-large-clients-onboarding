@@ -61,7 +61,7 @@ async function setStaleIssues() {
     issues.map(
       async (issue) => new Promise(
         async (resolve, reject) => {
-          const lastComment = getLastComment(issue.number, DAYS_TO_WAIT, 'github-actions[bot]');
+          const lastComment = await getLastComment(issue.number, DAYS_TO_WAIT, 'github-actions[bot]');
           let updatedAt = lastComment 
             ? new Date(lastComment.created_at) 
             : new Date(issue.updated_at);
