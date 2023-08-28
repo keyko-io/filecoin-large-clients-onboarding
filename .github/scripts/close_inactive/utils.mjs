@@ -1,7 +1,7 @@
 export async function getLastComment(octokit, owner, repo, issueNumber, includeBot) {
   const botSignature = "Commented by Stale Bot."
 
-  let { data: comments } = await octokit.paginate(octokit.issues.listComments, {
+  let comments = await octokit.paginate(octokit.issues.listComments, {
     owner,
     repo,
     issue_number: issueNumber,
