@@ -22,7 +22,7 @@ async function checkAndCommentOnIssues() {
   });
 
   const tenDaysAgo = new Date();
-  tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
+  tenDaysAgo.setDate(tenDaysAgo.getDate() - 4);
   const tenDaysAgoDateString = tenDaysAgo.toISOString().split('T')[0];
   console.log('Ten days ago: ', tenDaysAgoDateString)
 
