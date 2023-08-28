@@ -4,7 +4,7 @@ import { Octokit } from "@octokit/rest";
 import fetch from "node-fetch";
 import { getLastComment } from "./utils.mjs";
 
-const DAYS_TO_WAIT = 8;
+const DAYS_TO_WAIT = 5;
 const owner = process.env.GITHUB_REPOSITORY.split('/')[0];
 const repo = process.env.GITHUB_REPOSITORY.split('/')[1];
 
@@ -26,35 +26,6 @@ async function closeStaleIssues() {
 
   const dateThreshold = new Date();
   dateThreshold.setDate(dateThreshold.getDate() - DAYS_TO_WAIT);
-
-  // -----------------------------
-  // let updatedAt = new Date(issues[0].updated_at);
-  // let diffTime = dateThreshold - updatedAt;
-  // let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-  // console.log({
-  //   issue: issues[0].number,
-  //   dateThresholdIso: dateThreshold.toISOString().split('T')[0],
-  //   dateThreshold,
-  //   updatedAt,
-  //   diffTime,
-  //   diffDays
-  // })
-
-  // updatedAt =  new Date(issues[1].updated_at);
-  // diffTime = dateThreshold - updatedAt;
-  // diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  // console.log({
-  //   issue: issues[1].number,
-  //   dateThresholdIso: dateThreshold.toISOString().split('T')[0],
-  //   dateThreshold,
-  //   updatedAt,
-  //   diffTime,
-  //   diffDays
-  // })
-
-  // return;
-  // -----------------------------
   
   //Let's keep first 6 issues
   issues = issues.slice(0, 6);
@@ -72,12 +43,22 @@ async function closeStaleIssues() {
           const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
           if (diffDays > 0) {
-            // await octokit.issues.createComment({
-            //   owner,
-            //   repo,
-            //   issue_number: issue.number,
-            //   body: 'This application has not seen any responses in the last 14 days, so for now it is being closed. Please feel free to contact the Fil+ Gov team to re-open the application if it is still being processed. Thank you!'
-            // });
+            // Add stale label.
+            await octokit.issues.addLabels({
+              owner,
+              repo,
+              issue_number: issue.number,
+              labels: ['stale']
+            });
+
+            // Close issue.
+            await octokit.issues.update({
+              owner,
+              repo,
+              issue_number: issue.number,
+              state: 'closed'
+            });
+
             console.log(`Let's close issue ${issue.number}. Last commented ${diffDays} days ago`);
           } else {
             console.log(`Issue ${issue.number} will remain open. Updated ${diffDays} days ago`);
