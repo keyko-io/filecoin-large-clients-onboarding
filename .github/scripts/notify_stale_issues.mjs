@@ -23,11 +23,37 @@ async function checkAndCommentOnIssues() {
     per_page: 100,
   });
 
-  console.log('There are ', issues.length, ' issues open')
-  console.log(issues[0]);
-  return;
   const tenDaysAgo = new Date();
   tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
+
+  // -----------------------------
+  let updatedAt = new Date(issues[0].updated_at);
+  let diffTime = Math.abs(updatedAt - tenDaysAgo);
+  let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  console.log({
+    issue: issues[0].number,
+    tenDaysAgoIso: tenDaysAgo.toISOString().split('T')[0],
+    tenDaysAgo,
+    updatedAt,
+    diffTime,
+    diffDays
+  })
+
+  updatedAt =  new Date(issues[1].updated_at);
+  diffTime = Math.abs(updatedAt - tenDaysAgo);
+  diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  console.log({
+    issue: issues[0].number,
+    tenDaysAgoIso: tenDaysAgo.toISOString().split('T')[0],
+    tenDaysAgo,
+    updatedAt,
+    diffTime,
+    diffDays
+  })
+
+  return;
+  // -----------------------------
 
   Promise.allSettled(
     issues.map(
