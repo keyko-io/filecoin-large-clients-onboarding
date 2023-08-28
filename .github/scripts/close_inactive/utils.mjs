@@ -17,7 +17,7 @@ export async function getLastComment(octokit, owner, repo, issueNumber, daysToWa
     comment.user.login !== 'github-actions[bot]' ||
     !comment.body.includes(botSignature)
   );
-  console.log(nonBotComments)
+  
   if (nonBotComments.length === 0) {
     return null; // No hay comentarios que no sean del bot en los últimos 10 días.
   }
