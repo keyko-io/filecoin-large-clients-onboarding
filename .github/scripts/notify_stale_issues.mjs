@@ -24,6 +24,8 @@ async function checkAndCommentOnIssues() {
   });
 
   console.log('There are ', issues.length, ' issues open')
+  console.log(issues[0]);
+  return;
   const tenDaysAgo = new Date();
   tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
 
