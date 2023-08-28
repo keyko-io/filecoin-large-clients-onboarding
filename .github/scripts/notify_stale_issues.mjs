@@ -24,11 +24,11 @@ async function checkAndCommentOnIssues() {
   });
 
   const tenDaysAgo = new Date();
-  tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
+  tenDaysAgo.setDate(tenDaysAgo.getDate() - 3);
 
   // -----------------------------
   let updatedAt = new Date(issues[0].updated_at);
-  let diffTime = Math.abs(updatedAt - tenDaysAgo);
+  let diffTime = Math.abs(tenDaysAgo - updatedAt);
   let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
   console.log({
@@ -41,10 +41,10 @@ async function checkAndCommentOnIssues() {
   })
 
   updatedAt =  new Date(issues[1].updated_at);
-  diffTime = Math.abs(updatedAt - tenDaysAgo);
+  diffTime = Math.abs(tenDaysAgo - updatedAt);
   diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   console.log({
-    issue: issues[0].number,
+    issue: issues[1].number,
     tenDaysAgoIso: tenDaysAgo.toISOString().split('T')[0],
     tenDaysAgo,
     updatedAt,
@@ -62,7 +62,7 @@ async function checkAndCommentOnIssues() {
           const updatedAt = new Date(issue.updated_at);
 
           // Let's calculate the difference between the two dates
-          const diffTime = Math.abs(updatedAt - tenDaysAgo);
+          const diffTime = Math.abs(tenDaysAgo - updatedAt);
           const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
           if (diffDays >= 10) {
