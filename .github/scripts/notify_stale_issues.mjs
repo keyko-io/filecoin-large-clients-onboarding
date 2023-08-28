@@ -69,13 +69,13 @@ async function checkAndCommentOnIssues() {
           const diffTime = dateThreshold - updatedAt;
           const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-          if (diffDays >= 0) {
-            // await octokit.issues.createComment({
-            //   owner,
-            //   repo,
-            //   issue_number: issue.number,
-            //   body: "This application has not seen any responses in the last 10 days. This issue will be marked with Stale label and will be closed in 4 days. Comment if you want to keep this application open."
-            // });
+          if (diffDays > 0) {
+            await octokit.issues.createComment({
+              owner,
+              repo,
+              issue_number: issue.number,
+              body: "This application has not seen any responses in the last 10 days. This issue will be marked with Stale label and will be closed in 4 days. Comment if you want to keep this application open."
+            });
             console.log(`Stale advice on issue ${issue.number}. Updated ${diffDays} days ago`);
           } else {
             console.log(`No stale advice on issue ${issue.number}. Updated ${diffDays} days ago`);
