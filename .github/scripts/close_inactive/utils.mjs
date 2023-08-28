@@ -1,4 +1,4 @@
-export async function getLastComment(issueNumber, daysToWait) {
+export async function getLastComment(octokit, owner, repo, issueNumber, daysToWait) {
   const botSignature = "Commented by Stale Bot."
   const dateThreshold = new Date();
   dateThreshold.setDate(dateThreshold.getDate() - daysToWait);

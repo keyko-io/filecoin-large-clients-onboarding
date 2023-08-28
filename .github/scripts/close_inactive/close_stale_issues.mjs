@@ -62,7 +62,7 @@ async function closeStaleIssues() {
     issues.map(
       async (issue) => new Promise(
         async (resolve, reject) => {
-          const lastComment = await getLastComment(issue.number, DAYS_TO_WAIT);
+          const lastComment = await getLastComment(octokit, owner, repo, issue.number, DAYS_TO_WAIT);
           let updatedAt = lastComment 
             ? new Date(lastComment.created_at) 
             : new Date(issue.updated_at);
