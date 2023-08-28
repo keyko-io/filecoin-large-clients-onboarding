@@ -4,7 +4,7 @@ import { Octokit } from "@octokit/rest";
 import fetch from "node-fetch";
 import { getLastComment } from "./utils.mjs";
 
-const DAYS_TO_WAIT = 3;
+const DAYS_TO_WAIT = 10;
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
@@ -28,8 +28,6 @@ async function checkAndCommentOnIssues() {
   const dateThreshold = new Date();
   dateThreshold.setDate(dateThreshold.getDate() - DAYS_TO_WAIT);
   
-  //Let's keep first 6 issues
-  issues = issues.slice(0, 6);
   Promise.allSettled(
     issues.map(
       async (issue) => new Promise(
