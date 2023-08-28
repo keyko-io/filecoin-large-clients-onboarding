@@ -4,7 +4,7 @@ import { Octokit } from "@octokit/rest";
 import fetch from "node-fetch";
 import { getLastComment } from "./utils.mjs";
 
-const DAYS_TO_WAIT = 5;
+const DAYS_TO_WAIT = 3;
 const owner = process.env.GITHUB_REPOSITORY.split('/')[0];
 const repo = process.env.GITHUB_REPOSITORY.split('/')[1];
 
@@ -37,8 +37,6 @@ async function closeStaleIssues() {
           let updatedAt = lastComment 
             ? new Date(lastComment.created_at) 
             : new Date(issue.created_at);
-
-          console.log(updatedAt.toISOString().split('T')[0]);
 
           // Let's calculate the difference between the two dates
           const diffTime = dateThreshold - updatedAt;
