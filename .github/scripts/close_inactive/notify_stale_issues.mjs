@@ -38,7 +38,8 @@ async function checkAndCommentOnIssues() {
           if (lastComment && 
             lastComment.user.login == 'github-actions[bot]' && 
             lastComment.body.includes("Commented by Stale Bot.")
-          ) return; //Do not comment again if already commented by bot
+          ) return resolve(); //Do not comment again if already commented by bot
+          console.log(lastComment);
           
           const updatedAt = lastComment 
             ? new Date(lastComment.created_at) 
