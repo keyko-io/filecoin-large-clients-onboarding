@@ -105,7 +105,7 @@ async function getLastComment(issueNumber, daysToWait, botUsername) {
 
   console.log(comments.map(comment => comment.user.login))
   const nonBotComments = comments.filter(comment => comment.user.login !== botUsername);
-
+  console.log(nonBotComments)
   if (nonBotComments.length === 0) {
     return null; // No hay comentarios que no sean del bot en los últimos 10 días.
   }
