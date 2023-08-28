@@ -7,16 +7,16 @@ export async function getLastComment(octokit, owner, repo, issueNumber, includeB
     issue_number: issueNumber,
     per_page: 100
   });
+  
+  if (comments.length === 0) {
+    return null; // Issue has no comments.
+  }
 
   if (!includeBot) {
     comments = comments.filter(comment => 
       comment.user.login !== 'github-actions[bot]' ||
       !comment.body.includes(botSignature)
     );
-  }
-  
-  if (comments.length === 0) {
-    return null; // Issue has no comments.
   }
 
   // Order comments by date desc.
