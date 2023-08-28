@@ -28,7 +28,7 @@ async function checkAndCommentOnIssues() {
 
   // -----------------------------
   let updatedAt = new Date(issues[0].updated_at);
-  let diffTime = Math.abs(tenDaysAgo - updatedAt);
+  let diffTime = tenDaysAgo - updatedAt;
   let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
   console.log({
@@ -41,7 +41,7 @@ async function checkAndCommentOnIssues() {
   })
 
   updatedAt =  new Date(issues[1].updated_at);
-  diffTime = Math.abs(tenDaysAgo - updatedAt);
+  diffTime = tenDaysAgo - updatedAt;
   diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   console.log({
     issue: issues[1].number,
