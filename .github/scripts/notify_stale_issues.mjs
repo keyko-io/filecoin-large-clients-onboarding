@@ -58,7 +58,7 @@ async function checkAndCommentOnIssues() {
   // // -----------------------------
   
   //Let's keep first 4 issues
-  issues = issues.slice(4);
+  issues.slice(4);
   Promise.allSettled(
     issues.map(
       async (issue) => new Promise(
