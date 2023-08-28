@@ -11,7 +11,6 @@ jobs:
     steps:
       - uses: actions/stale@v8
         with:
-          stale-issue-message: 'This application has not seen any responses in the last 10 days. This issue will be marked with Stale label and will be closed in 4 days. Comment if you want to keep this application open.'
           stale-pr-message: 'This application has not seen any responses in the last 14 days, so for now it is being closed. Please feel free to contact the Fil+ Gov team to re-open the application if it is still being processed. Thank you!'
           close-issue-message: 'This application has not seen any responses in the last 14 days, so for now it is being closed. Please feel free to contact the Fil+ Gov team to re-open the application if it is still being processed. Thank you!'
           days-before-stale: 14 # We will mark as stale at 14 days of inactivity
