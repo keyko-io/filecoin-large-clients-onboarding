@@ -4,7 +4,7 @@ import { Octokit } from "@octokit/rest";
 import fetch from "node-fetch";
 import { getLastComment } from "./utils.mjs";
 
-const DAYS_TO_WAIT = 1;
+const DAYS_TO_WAIT = 3;
 
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
@@ -12,7 +12,6 @@ const octokit = new Octokit({
     fetch: fetch
   }
 });
-
 
 const owner = process.env.GITHUB_REPOSITORY.split('/')[0];
 const repo = process.env.GITHUB_REPOSITORY.split('/')[1];
@@ -28,43 +27,22 @@ async function checkAndCommentOnIssues() {
 
   const dateThreshold = new Date();
   dateThreshold.setDate(dateThreshold.getDate() - DAYS_TO_WAIT);
-
-  // // -----------------------------
-  // let updatedAt = new Date(issues[0].updated_at);
-  // let diffTime = dateThreshold - updatedAt;
-  // let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-  // console.log({
-  //   issue: issues[0].number,
-  //   dateThresholdIso: dateThreshold.toISOString().split('T')[0],
-  //   dateThreshold,
-  //   updatedAt,
-  //   diffTime,
-  //   diffDays
-  // })
-
-  // updatedAt =  new Date(issues[1].updated_at);
-  // diffTime = dateThreshold - updatedAt;
-  // diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  // console.log({
-  //   issue: issues[1].number,
-  //   dateThresholdIso: dateThreshold.toISOString().split('T')[0],
-  //   dateThreshold,
-  //   updatedAt,
-  //   diffTime,
-  //   diffDays
-  // })
-
-  // return;
-  // // -----------------------------
   
-  //Let's keep first 4 issues
-  issues = issues.slice(0, 4);
+  //Let's keep first 6 issues
+  issues = issues.slice(0, 6);
   Promise.allSettled(
     issues.map(
       async (issue) => new Promise(
         async (resolve, reject) => {
-          const updatedAt = new Date(issue.updated_at);
+          const lastComment = await getLastComment(octokit, owner, repo, issue.number, true);
+          if (lastComment && 
+            lastComment.user.login == 'github-actions[bot]' && 
+            lastComment.body.includes("Commented by Stale Bot.")
+          ) return; //Do not comment again if already commented by bot
+          
+          const updatedAt = lastComment 
+            ? new Date(lastComment.created_at) 
+            : new Date(issue.created_at);
 
           // Let's calculate the difference between the two dates
           const diffTime = dateThreshold - updatedAt;

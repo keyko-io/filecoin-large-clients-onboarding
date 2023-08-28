@@ -4,7 +4,7 @@ import { Octokit } from "@octokit/rest";
 import fetch from "node-fetch";
 import { getLastComment } from "./utils.mjs";
 
-const DAYS_TO_WAIT = 3;
+const DAYS_TO_WAIT = 5;
 const owner = process.env.GITHUB_REPOSITORY.split('/')[0];
 const repo = process.env.GITHUB_REPOSITORY.split('/')[1];
 

@@ -7,23 +7,23 @@ on:
 
 jobs:
   
-  # notify_stale_issues:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v3
-  #       with:
-  #         sparse-checkout: |
-  #           .github
+  notify_stale_issues:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          sparse-checkout: |
+            .github
           
-  #     - name: Install dependencies
-  #       run: |
-  #         npm install @octokit/rest node-fetch
+      - name: Install dependencies
+        run: |
+          npm install @octokit/rest node-fetch
           
-  #     - name: Notify on stale issues
-  #       run: node .github/scripts/notify_stale_issues.mjs
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Notify on stale issues
+        run: node .github/scripts/close_inactive/notify_stale_issues.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   close_stale_issues:
     runs-on: ubuntu-latest
