@@ -6,20 +6,26 @@ on:
 
 
 jobs:
-  stale:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/stale@v8
-        with:
-          stale-pr-message: 'This application has not seen any responses in the last 14 days, so for now it is being closed. Please feel free to contact the Fil+ Gov team to re-open the application if it is still being processed. Thank you!'
-          close-issue-message: 'This application has not seen any responses in the last 14 days, so for now it is being closed. Please feel free to contact the Fil+ Gov team to re-open the application if it is still being processed. Thank you!'
-          days-before-stale: 14 # We will mark as stale at 14 days of inactivity
-          days-before-close: 0  # We will close immediately after marking as stale
-          days-before-pr-close: -1
-          operations-per-run: 1000
-          ascending: true
   
-  notify_stale_issues:
+  # notify_stale_issues:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+  #       with:
+  #         sparse-checkout: |
+  #           .github
+          
+  #     - name: Install dependencies
+  #       run: |
+  #         npm install @octokit/rest node-fetch
+          
+  #     - name: Notify on stale issues
+  #       run: node .github/scripts/notify_stale_issues.mjs
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  set_stale_issues:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -32,7 +38,7 @@ jobs:
         run: |
           npm install @octokit/rest node-fetch
           
-      - name: Notify on stale issues
-        run: node .github/scripts/notify_stale_issues.mjs
+      - name: set stale issues
+        run: node .github/scripts/set_stale_issues.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
