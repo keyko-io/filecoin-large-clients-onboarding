@@ -1,7 +1,8 @@
-// .github/scripts/notify_stale_issues.js
+// .github/scripts/close_inactive/notify_stale_issues.js
 
 import { Octokit } from "@octokit/rest";
 import fetch from "node-fetch";
+import { getLastComment } from "./utils.mjs";
 
 const DAYS_TO_WAIT = 1;
 

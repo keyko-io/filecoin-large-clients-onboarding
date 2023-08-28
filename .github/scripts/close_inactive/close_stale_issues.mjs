@@ -1,7 +1,8 @@
-// .github/scripts/notify_stale_issues.js
+// .github/scripts/close_inactive/close_stale_issues.js
 
 import { Octokit } from "@octokit/rest";
 import fetch from "node-fetch";
+import { getLastComment } from "./utils.mjs";
 
 const DAYS_TO_WAIT = 8;
 const owner = process.env.GITHUB_REPOSITORY.split('/')[0];
@@ -14,7 +15,7 @@ const octokit = new Octokit({
   }
 });
 
-async function setStaleIssues() {
+async function closeStaleIssues() {
 
   let issues = await octokit.paginate(octokit.issues.listForRepo, {
     owner,
@@ -87,36 +88,5 @@ async function setStaleIssues() {
     )
   );
 }
-
-async function getLastComment(issueNumber, daysToWait) {
-  const botSignature = "Commented by Stale Bot."
-  const dateThreshold = new Date();
-  dateThreshold.setDate(dateThreshold.getDate() - daysToWait);
-
-  const sinceDate = dateThreshold.toISOString();
-
-  const { data: comments } = await octokit.issues.listComments({
-    owner,
-    repo,
-    issue_number: issueNumber,
-    since: sinceDate,
-    per_page: 100
-  });
-
-  const nonBotComments = comments.filter(comment => 
-    comment.user.login !== 'github-actions[bot]' ||
-    !comment.body.includes(botSignature)
-    );
-  console.log(comments)
-  console.log(nonBotComments)
-  if (nonBotComments.length === 0) {
-    return null; // No hay comentarios que no sean del bot en los últimos 10 días.
-  }
-
-  // Ordena los comentarios por fecha y selecciona el más reciente.
-  nonBotComments.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-  return nonBotComments[0];
-}
-
-setStaleIssues();
+closeStaleIssues();
 
