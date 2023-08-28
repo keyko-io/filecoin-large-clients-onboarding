@@ -22,22 +22,34 @@ async function checkAndCommentOnIssues() {
   });
 
   const tenDaysAgo = new Date();
-  tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
+  tenDaysAgo.setDate(tenDaysAgo.getDate() - 4);
   const tenDaysAgoDateString = tenDaysAgo.toISOString().split('T')[0];
+  console.log('Ten days ago: ', tenDaysAgoDateString)
 
-  for (const issue of issues) {
-    const updatedAt = new Date(issue.updated_at);
-    const updatedAtDateString = updatedAt.toISOString().split('T')[0];
-
-    if (updatedAtDateString === tenDaysAgoDateString) {
-      await octokit.issues.createComment({
-        owner,
-        repo,
-        issue_number: issue.number,
-        body: "This application has not seen any responses in the last 10 days. This issue will be marked with Stale label and will be closed in 4 days. Comment if you want to keep this application open."
-      });
-    }
-  }
+  Promise.allSettled(
+    issues.map(
+      async (issue) => new Promise(
+        async (resolve, reject) => {
+          const updatedAt = new Date(issue.updated_at);
+          const updatedAtDateString = updatedAt.toISOString().split('T')[0];
+          console.log(updatedAtDateString, tenDaysAgoDateString)
+          if (updatedAtDateString === tenDaysAgoDateString) {
+            // await octokit.issues.createComment({
+            //   owner,
+            //   repo,
+            //   issue_number: issue.number,
+            //   body: "This application has not seen any responses in the last 10 days. This issue will be marked with Stale label and will be closed in 4 days. Comment if you want to keep this application open."
+            // });
+            console.log(`Stale advice on issue ${issue.number}`);
+          } else {
+            console.log(`No stale advice on issue ${issue.number}`);
+          }
+          return resolve();
+        }
+      )
+    )
+  );
 }
 
 checkAndCommentOnIssues();
+
