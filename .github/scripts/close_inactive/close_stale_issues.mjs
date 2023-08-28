@@ -41,6 +41,15 @@ async function closeStaleIssues() {
           const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
           if (diffDays > 0) {
+            await octokit.issues.createComment({
+              owner,
+              repo,
+              issue_number: issue.number,
+              body: `This application has not seen any responses in the last 14 days, so for now it is being closed. Please feel free to contact the Fil+ Gov team to re-open the application if it is still being processed. Thank you!
+\n\n
+--
+Commented by Stale Bot.`
+            });
             // Add stale label.
             await octokit.issues.addLabels({
               owner,
