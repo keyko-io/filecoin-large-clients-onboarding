@@ -8,7 +8,6 @@ export async function getLastComment(octokit, owner, repo, issueNumber, includeB
     per_page: 100
   });
   
-  console.log(comments)
   if (!comments || comments.length === 0) {
     return null; // Issue has no comments.
   }
