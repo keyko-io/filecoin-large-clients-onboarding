@@ -38,6 +38,8 @@ async function closeStaleIssues() {
             ? new Date(lastComment.created_at) 
             : new Date(issue.created_at);
 
+          console.log(updatedAt.toISOString().split('T')[0]);
+
           // Let's calculate the difference between the two dates
           const diffTime = dateThreshold - updatedAt;
           const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
