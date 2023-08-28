@@ -15,25 +15,29 @@ const owner = process.env.GITHUB_REPOSITORY.split('/')[0];
 const repo = process.env.GITHUB_REPOSITORY.split('/')[1];
 
 async function checkAndCommentOnIssues() {
-  const { data: issues } = await octokit.issues.listForRepo({
+
+  const issues = await octokit.paginate(octokit.issues.listForRepo, {
     owner,
     repo,
-    state: 'open'
+    state: 'open',
+    per_page: 100,
   });
 
+  console.log('There are ', issues.length, ' issues open')
   const tenDaysAgo = new Date();
-  tenDaysAgo.setDate(tenDaysAgo.getDate() - 4);
-  const tenDaysAgoDateString = tenDaysAgo.toISOString().split('T')[0];
-  console.log('Ten days ago: ', tenDaysAgoDateString)
+  tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
 
   Promise.allSettled(
     issues.map(
       async (issue) => new Promise(
         async (resolve, reject) => {
           const updatedAt = new Date(issue.updated_at);
-          const updatedAtDateString = updatedAt.toISOString().split('T')[0];
-          console.log(updatedAtDateString, tenDaysAgoDateString)
-          if (updatedAtDateString === tenDaysAgoDateString) {
+
+          // Let's calculate the difference between the two dates
+          const diffTime = Math.abs(updatedAt - tenDaysAgo);
+          const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+          if (diffDays >= 10) {
             // await octokit.issues.createComment({
             //   owner,
             //   repo,
