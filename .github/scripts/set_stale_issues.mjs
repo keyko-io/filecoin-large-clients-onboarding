@@ -61,7 +61,7 @@ async function setStaleIssues() {
     issues.map(
       async (issue) => new Promise(
         async (resolve, reject) => {
-          const lastComment = await getLastComment(issue.number, DAYS_TO_WAIT, 'github-actions[bot]');
+          const lastComment = await getLastComment(issue.number, DAYS_TO_WAIT);
           let updatedAt = lastComment 
             ? new Date(lastComment.created_at) 
             : new Date(issue.updated_at);
@@ -88,8 +88,8 @@ async function setStaleIssues() {
   );
 }
 
-async function getLastComment(issueNumber, daysToWait, botUsername) {
-  
+async function getLastComment(issueNumber, daysToWait) {
+  const botSignature = "Commented by Stale Bot."
   const dateThreshold = new Date();
   dateThreshold.setDate(dateThreshold.getDate() - daysToWait);
 
@@ -103,7 +103,10 @@ async function getLastComment(issueNumber, daysToWait, botUsername) {
     per_page: 100
   });
 
-  const nonBotComments = comments.filter(comment => comment.user.login !== botUsername);
+  const nonBotComments = comments.filter(comment => 
+    comment.user.login !== 'github-actions[bot]' ||
+    !comment.body.includes(botSignature)
+    );
   console.log(comments)
   console.log(nonBotComments)
   if (nonBotComments.length === 0) {
