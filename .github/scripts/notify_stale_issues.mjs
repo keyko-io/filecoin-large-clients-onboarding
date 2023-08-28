@@ -3,6 +3,8 @@
 import { Octokit } from "@octokit/rest";
 import fetch from "node-fetch";
 
+const DAYS_TO_WAIT = 1;
+
 const octokit = new Octokit({
   auth: process.env.GITHUB_TOKEN,
   request: {
@@ -16,37 +18,37 @@ const repo = process.env.GITHUB_REPOSITORY.split('/')[1];
 
 async function checkAndCommentOnIssues() {
 
-  const issues = await octokit.paginate(octokit.issues.listForRepo, {
+  let issues = await octokit.paginate(octokit.issues.listForRepo, {
     owner,
     repo,
     state: 'open',
     per_page: 100,
   });
 
-  const tenDaysAgo = new Date();
-  tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
+  const dateThreshold = new Date();
+  dateThreshold.setDate(dateThreshold.getDate() - DAYS_TO_WAIT);
 
   // // -----------------------------
   // let updatedAt = new Date(issues[0].updated_at);
-  // let diffTime = tenDaysAgo - updatedAt;
+  // let diffTime = dateThreshold - updatedAt;
   // let diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
   // console.log({
   //   issue: issues[0].number,
-  //   tenDaysAgoIso: tenDaysAgo.toISOString().split('T')[0],
-  //   tenDaysAgo,
+  //   dateThresholdIso: dateThreshold.toISOString().split('T')[0],
+  //   dateThreshold,
   //   updatedAt,
   //   diffTime,
   //   diffDays
   // })
 
   // updatedAt =  new Date(issues[1].updated_at);
-  // diffTime = tenDaysAgo - updatedAt;
+  // diffTime = dateThreshold - updatedAt;
   // diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   // console.log({
   //   issue: issues[1].number,
-  //   tenDaysAgoIso: tenDaysAgo.toISOString().split('T')[0],
-  //   tenDaysAgo,
+  //   dateThresholdIso: dateThreshold.toISOString().split('T')[0],
+  //   dateThreshold,
   //   updatedAt,
   //   diffTime,
   //   diffDays
@@ -54,7 +56,9 @@ async function checkAndCommentOnIssues() {
 
   // return;
   // // -----------------------------
-
+  
+  //Let's keep first 4 issues
+  issues = issues.slice(4);
   Promise.allSettled(
     issues.map(
       async (issue) => new Promise(
@@ -62,7 +66,7 @@ async function checkAndCommentOnIssues() {
           const updatedAt = new Date(issue.updated_at);
 
           // Let's calculate the difference between the two dates
-          const diffTime = tenDaysAgo - updatedAt;
+          const diffTime = dateThreshold - updatedAt;
           const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
           if (diffDays >= 0) {
