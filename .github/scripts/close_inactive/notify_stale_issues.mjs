@@ -29,7 +29,7 @@ async function checkAndCommentOnIssues() {
   const dateThreshold = new Date();
   dateThreshold.setDate(dateThreshold.getDate() - DAYS_TO_WAIT);
 
-  for (issue of issues) {
+  for (let issue of issues) {
     const rateLimitStatus = await octokit.rateLimit.get();
     const remaining = rateLimitStatus.data.rate.remaining;
 
