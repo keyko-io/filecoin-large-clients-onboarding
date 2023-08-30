@@ -1,5 +1,15 @@
 const RATE_REMAINING_LIMIT = 100;
 
+/**
+ * This function returns the last comment on an issue.
+ * 
+ * @param {Octokit} octokit 
+ * @param {string} owner 
+ * @param {string} repo 
+ * @param {number} issueNumber 
+ * @param {boolean} includeBot 
+ * @returns 
+ */
 export async function getLastComment(octokit, owner, repo, issueNumber, includeBot) {
   const botSignature = "Commented by Stale Bot."
 
@@ -26,6 +36,11 @@ export async function getLastComment(octokit, owner, repo, issueNumber, includeB
   return comments[0];
 }
 
+/**
+ * This function checks the rate limit status and sleeps if the remaining requests are below the limit.
+ * 
+ * @param {Octokit} octokit 
+ */
 export async function checkThrottling(octokit) {
   const rateLimitStatus = await octokit.rateLimit.get();
   const remaining = rateLimitStatus.data.rate.remaining;
@@ -36,8 +51,7 @@ export async function checkThrottling(octokit) {
     const sleepTime = (timestampReset - timestampNow)
 
     const sleepTimeStringInMinutesAndSeconds = new Date(sleepTime).toISOString().substr(14, 5);
-    console.log(`Rate limit reached. Throttling for ${sleepTimeStringInMinutesAndSeconds} ms`);
-    process.exit(0)
+    console.log(`Rate limit reached. Throttling for ${sleepTimeStringInMinutesAndSeconds} minutes`);
     await new Promise(resolve => setTimeout(resolve, sleepTime));
   }
 }

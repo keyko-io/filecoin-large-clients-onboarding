@@ -15,6 +15,9 @@ const octokit = new Octokit({
   }
 });
 
+/**
+ * This function checks the rate limit status and sleeps if the remaining requests are below the limit.
+ */
 async function checkAndCommentOnIssues() {
 
   await checkThrottling(octokit);
