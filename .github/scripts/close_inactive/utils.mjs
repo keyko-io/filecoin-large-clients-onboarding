@@ -1,3 +1,5 @@
+const RATE_REMAINING_LIMIT = 100;
+
 export async function getLastComment(octokit, owner, repo, issueNumber, includeBot) {
   const botSignature = "Commented by Stale Bot."
 
@@ -22,4 +24,19 @@ export async function getLastComment(octokit, owner, repo, issueNumber, includeB
   // Order comments by date desc.
   comments.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   return comments[0];
+}
+
+export async function checkThrottling(octokit) {
+  const rateLimitStatus = await octokit.rateLimit.get();
+  console.log(`rateLimitStatus: ${rateLimitStatus.data.rate}`);
+  const remaining = rateLimitStatus.data.rate.remaining;
+
+  if (remaining < RATE_REMAINING_LIMIT) {
+    const timestampNow = new Date().getTime()
+    const timestampReset = rateLimitStatus.data.rate.reset * 1000
+    const sleepTime = (timestampReset - timestampNow)
+
+    console.log(`Rate limit reached. Throttling for ${sleepTime} ms`);
+    await new Promise(resolve => setTimeout(resolve, sleepTime));
+  }
 }
