@@ -20,7 +20,7 @@ const octokit = new Octokit({
 async function closeStaleIssues() {
 
   const rateLimitStatusGlobal = await octokit.rateLimit.get();
-  console.log(`rateLimitStatus: ${rateLimitStatusGlobal.data}`);
+  console.log(`rateLimitStatus: ${JSON.stringify(rateLimitStatusGlobal.data)}`);
 
   let issues = await octokit.paginate(octokit.issues.listForRepo, {
     owner,
