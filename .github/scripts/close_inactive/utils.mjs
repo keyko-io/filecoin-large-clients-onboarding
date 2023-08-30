@@ -28,7 +28,6 @@ export async function getLastComment(octokit, owner, repo, issueNumber, includeB
 
 export async function checkThrottling(octokit) {
   const rateLimitStatus = await octokit.rateLimit.get();
-  console.log(`rateLimitStatus: ${rateLimitStatus.data.rate}`);
   const remaining = rateLimitStatus.data.rate.remaining;
 
   if (remaining < RATE_REMAINING_LIMIT) {
@@ -36,7 +35,8 @@ export async function checkThrottling(octokit) {
     const timestampReset = rateLimitStatus.data.rate.reset * 1000
     const sleepTime = (timestampReset - timestampNow)
 
-    console.log(`Rate limit reached. Throttling for ${sleepTime} ms`);
+    const sleepTimeStringInMinutesAndSeconds = new Date(sleepTime).toISOString().substr(14, 5);
+    console.log(`Rate limit reached. Throttling for ${sleepTimeStringInMinutesAndSeconds} ms`);
     await new Promise(resolve => setTimeout(resolve, sleepTime));
   }
 }
