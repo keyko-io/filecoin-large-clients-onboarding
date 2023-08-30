@@ -37,6 +37,7 @@ export async function checkThrottling(octokit) {
 
     const sleepTimeStringInMinutesAndSeconds = new Date(sleepTime).toISOString().substr(14, 5);
     console.log(`Rate limit reached. Throttling for ${sleepTimeStringInMinutesAndSeconds} ms`);
+    process.exit(0)
     await new Promise(resolve => setTimeout(resolve, sleepTime));
   }
 }
