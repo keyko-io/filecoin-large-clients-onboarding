@@ -31,6 +31,7 @@ async function checkAndCommentOnIssues() {
 
   for (let issue of issues) {
     const rateLimitStatus = await octokit.rateLimit.get();
+    console.log(`rateLimitStatus: ${JSON.stringify(rateLimitStatus)}`);
     const remaining = rateLimitStatus.data.rate.remaining;
 
     if (remaining < RATE_REMAINING_LIMIT) {
