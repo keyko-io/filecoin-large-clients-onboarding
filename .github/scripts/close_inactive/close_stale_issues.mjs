@@ -6,7 +6,7 @@ import { getLastComment } from "./utils.mjs";
 
 const DAYS_TO_WAIT = 14;
 const RATE_REMAINING_LIMIT = 100;
-const RATE_SLEEP = 1000;
+const RATE_SLEEP = 10000;
 const owner = process.env.GITHUB_REPOSITORY.split('/')[0];
 const repo = process.env.GITHUB_REPOSITORY.split('/')[1];
 
@@ -18,6 +18,9 @@ const octokit = new Octokit({
 });
 
 async function closeStaleIssues() {
+
+  const rateLimitStatusGlobal = await octokit.rateLimit.get();
+  console.log(`rateLimitStatus: ${rateLimitStatusGlobal.data}`);
 
   let issues = await octokit.paginate(octokit.issues.listForRepo, {
     owner,
