@@ -97,8 +97,8 @@ async function processPullRequest(owner, repo, prNumber, githubToken) {
       return;
     }
 
-    if (fileContent.application_lifecycle?.state === "confirmed" &&
-        fileContent.application_lifecycle?.first_allocation_time !== "") {
+    if (fileContent?.info.application_lifecycle?.state === "Confirmed" &&
+        fileContent?.info.application_lifecycle?.first_allocation_time !== "") {
       console.log("Conditions met for automatic merge.");
       await mergePullRequest(owner, repo, prNumber, githubToken);
     } else {
