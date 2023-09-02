@@ -16,8 +16,7 @@ async function fetchChangedFilesInPR(owner, repo, prNumber, githubToken) {
 
   try {
     const { data } = await axios.get(url, { headers });
-    const filenames = data.map((file) => file.filename);
-    return filenames;
+    return data;
   } catch (err) {
     console.error('Error fetching changed files:', err);
     return null;
@@ -86,12 +85,12 @@ async function processPullRequest(owner, repo, prNumber, githubToken) {
   if (!changedFiles) {
     return;
   }
+  const changedFilenames = changedFiles.map(file => file.filename);
   
-  console.log('Changed files:', changedFiles);
+  console.log('Changed files:', changedFilenames);
 
-  if (changedFiles.length === 1 && changedFiles[0].endsWith('.json')) {
+  if (changedFilenames.length === 1 && changedFilenames[0].endsWith('.json')) {
     console.log('A single JSON file has been modified.');
-    console.log(changedFiles[0]);
     const fileContent = await fetchJSONFileContent(owner, repo, changedFiles[0].sha, githubToken);
 
     if (!fileContent) {
