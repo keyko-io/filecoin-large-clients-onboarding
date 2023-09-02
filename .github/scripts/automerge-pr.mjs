@@ -91,6 +91,7 @@ async function processPullRequest(owner, repo, prNumber, githubToken) {
 
   if (changedFiles.length === 1 && changedFiles[0].endsWith('.json')) {
     console.log('A single JSON file has been modified.');
+    console.log(changedFiles[0]);
     const fileContent = await fetchJSONFileContent(owner, repo, changedFiles[0].sha, githubToken);
 
     if (!fileContent) {
