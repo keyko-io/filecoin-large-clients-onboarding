@@ -1,60 +1,23 @@
 {
-		"id": "853",
-		"auditTrail": "https://github.com/filecoin-project/filecoin-plus-large-datasets/issues/2059",
-		"newRequest": false,
-		"trackingFileUrl": "",
-		"dataCapApplicationType": [
-			"ldn-v3"
-		],
-		"datacapApplicant": "c12xf",
-		"issueLabels": [
-			"validated",
-			"very large application",
-			"data type: open public"
-		],
-		"applicationInfo": {
-			"coreInformation": {
-				"name": "Shenzhen Xinghongweiye Technology Co., LTD",
-				"region": "China",
-				"website": "http://www.xinghongwy.com/",
-				"datacapRequested": "15PiB",
-				"dataCapWeeklyAllocation": "1PiB",
-				"address": "f1bgqhc5hfbs43cqptr55ajg7kas3enehlms6r6ka",
-				"isCustomNotary": false,
-				"identifier": null,
-				"dataType": "Public, Open Dataset (Research/Non-Profit)",
-				"correct": true,
-				"errorMessage": "",
-				"errorDetails": "",
-				"isAddressFormatted": true
-			},
-			"projectDetails": {
-				"Share a brief history of your project and organization": "",
-				"Is this project associated with other projects/ecosystem stakeholders?": false,
-				"If answered yes, what are the other projects/ecosystem stakeholders": ""
-			},
-			"datacapAllocationPlan": {
-				"In which geographies do you plan on making storage deals": "",
-				"How will you be distributing your data to storage providers": "",
-				"How do you plan to choose storage providers": "",
-				"If you answered 'Other' in the previous question, what is the tool or platform you plan to use": "",
-				"If you already have a list of storage providers to work with, fill out their names and provider IDs below": "",
-				"How do you plan to make deals to your storage providers": "",
-				"If you answered 'Others/custom tool' in the previous question, enter the details here": "",
-				"Can you confirm that you will follow the Fil+ guideline (Data owner should engage at least 4 SPs and no single SP ID should receive >30% of a client's allocated DataCap)": ""
-			},
-			"useCaseDetails": {
-				"Describe the data being stored onto Filecoin": "",
-				"Where was the data currently stored in this dataset sourced from": "",
-				"If you answered 'Other' in the previous question, enter the details here": "",
-				"How do you plan to prepare the dataset": "",
-				"If you answered 'other/custom tool' in the previous question, enter the details here": "",
-				"Please share a sample of the data (A link to a file, an image, a table, etc., are good ways to do this.)": "",
-				"Confirm that this is a public dataset that can be retrieved by anyone on the Network (i.e., no specific permissions or access rights are required to view the data)": false,
-				"If you chose not to confirm, what was the reason": "",
-				"What is the expected retrieval frequency for this data": "",
-				"For how long do you plan to keep this dataset stored on Filecoin": ""
-			}
-		},
-		"datacapAllocations": []
-	}
+  "id": "18",
+  "_type": "LDN",
+  "info": {
+    "core_information": {
+      "data_owner_name": "No Name",
+      "data_owner_region": "No Region",
+      "data_owner_industry": "TODO",
+      "website": "No Website",
+      "social_media": "TODO"
+    },
+    "application_lifecycle": {
+      "state": "GovernanceReview",
+      "validated_time": "2023-08-10 12:41:34.753427303 UTC",
+      "initial_pr_number": 1618,
+      "validated_by": "",
+      "first_allocation_time": "",
+      "is_active": true,
+      "time_of_new_state": "2023-08-10 12:41:34.753430417 UTC"
+    },
+    "datacap_allocations": []
+  }
+}
