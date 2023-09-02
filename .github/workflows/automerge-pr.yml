@@ -1,0 +1,33 @@
+# .github/workflows/automerge-pr.yml
+
+name: Automerge Pull Request
+
+on:
+  pull_request:
+    branches:
+      - test-workflows
+
+jobs:
+  list-changed-files:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+
+    - name: Install Dependencies
+      run: npm install axios
+
+    - name: Extract Pull Request Number
+      run: echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+
+    - name: Run Script
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        OWNER: ${{ github.event.repository.owner.login }}
+        REPO: ${{ github.event.repository.name }}
+      run: node .github/scripts/automerge-pr.mjs
