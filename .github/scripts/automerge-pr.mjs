@@ -20,7 +20,8 @@ async function fetchChangedFiles(owner, repo, prNumber, githubToken) {
 
     if (filenames.length === 1 && filenames[0].endsWith('.json')) {
       console.log('A single JSON file has been modified.');
-      const fileContent = await fetchFileContent(owner, repo, filenames[0], githubToken);
+      const fileSha = data[0].sha;
+      const fileContent = await fetchFileContent(owner, repo, fileSha, githubToken);
       console.log('Content of the modified JSON file:', fileContent);
     } else {
       console.log('Either multiple files are modified or the modified file is not a JSON.');
@@ -38,8 +39,8 @@ async function fetchChangedFiles(owner, repo, prNumber, githubToken) {
  * @param {string} githubToken 
  * @returns 
  */
-async function fetchFileContent(owner, repo, filePath, githubToken) {
-  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}?ref=pulls/${prNumber}/merge`;
+async function fetchFileContent(owner, repo, sha, githubToken) {
+  const url = `https://api.github.com/repos/${owner}/${repo}/git/blobs/${sha}`;
   const headers = { Authorization: `token ${githubToken}` };
 
   try {
