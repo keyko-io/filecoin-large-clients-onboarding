@@ -6,7 +6,7 @@ on:
       - opened
       - reopened
     branches:
-      - feature/automerge-pr
+      - main
 
 jobs:
   automerge-pr:
