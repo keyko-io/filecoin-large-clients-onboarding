@@ -1,14 +1,15 @@
-# .github/workflows/automerge-pr.yml
-
 name: Automerge Pull Request
 
 on:
   pull_request:
+    types:
+      - opened
+      - reopened
     branches:
-      - test-workflows
+      - main
 
 jobs:
-  list-changed-files:
+  automerge-pr:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
